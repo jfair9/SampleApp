@@ -1,4 +1,4 @@
-node('master'){
+node('local'){
 
 stage('Build'){
   def dotnet = docker.image('microsoft/dotnet:2.1-sdk')
