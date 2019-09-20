@@ -1,13 +1,10 @@
-node('local'){
-
-stage('Build'){
-  def dotnet = docker.image('microsoft/dotnet:2.1-sdk')
-  dotnet.inside {
-    sh "dotnet publish -o Out"
-  }
-}
-stage('Unit Test'){}
-stage('Package'){}
-
-
+pipeline {
+    agent { docker 'microsoft/dotnet:2.1-sdk' } 
+    stages {
+        stage('Example Build') {
+            steps {
+                sh "dotnet publish -o Out"
+            }
+        }
+    }
 }
