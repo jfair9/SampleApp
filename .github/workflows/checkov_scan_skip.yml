@@ -1,6 +1,6 @@
-name: SonarQube scan
+name: Checkov Scan (Dev1)
 on:
-  push:
+  pull_request:
     paths:
       - '.github/**'
       - 'infrastructure/**'
@@ -13,9 +13,8 @@ jobs:
       - name: Log Workflow Parameters
         run: |
           echo "Workflow Branch: ${{github.ref_name}}"
-          echo "Input Parameters: ${{ toJSON(inputs) }}"
-  build:
-    name: Run SonarScan
-    runs-on: ubuntu-latest
-    steps:
-      - run: 'echo "No sonar scan required"'
+  dev1:
+    name: Scan dev1
+    uses: ./.github/workflows/_common-checkov-tf-scan-skip.yml
+    with:
+      environment: dev1
