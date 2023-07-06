@@ -1,0 +1,21 @@
+name: SonarQube scan
+on:
+  push:
+    paths:
+      - '.github/**'
+      - 'infrastructure/**'
+
+jobs:
+  log-inputs:
+    name: Log Workflow Parameters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Workflow Parameters
+        run: |
+          echo "Workflow Branch: ${{github.ref_name}}"
+          echo "Input Parameters: ${{ toJSON(inputs) }}"
+  build:
+    name: Run SonarScan
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No sonar scan required"'

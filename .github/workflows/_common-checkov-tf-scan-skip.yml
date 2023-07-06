@@ -1,0 +1,18 @@
+name: Checkov Scan (Terraform)
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  checkov-app:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No checkov-app scan required"'
+
+  checkov-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No checkov-pipeline scan required"'
