@@ -14,7 +14,7 @@ pipeline {
     stage('Example Build') {
       steps {
         container('dotnet') {
-          sh 'dotnet publish -o Out  '
+          sh 'dotnet publish -o Out'
         }
       }
     }
