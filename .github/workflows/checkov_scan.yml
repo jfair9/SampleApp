@@ -1,0 +1,20 @@
+name: Checkov Scan
+on:
+  push:
+    paths:
+      - '.github/**'
+      - 'infrastructure/**'
+
+jobs:
+  log-inputs:
+    name: Log Workflow Parameters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Workflow Parameters
+        run: |
+          echo "Workflow Branch: ${{github.ref_name}}"
+  dev1:
+    name: Scan dev1
+    uses: ./.github/workflows/_common-checkov-tf-scan-skip.yml
+    with:
+      environment: dev1
