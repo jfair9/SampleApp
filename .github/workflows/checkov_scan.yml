@@ -1,6 +1,6 @@
 name: Checkov Scan
 on:
-  push:
+  pull_request:
     paths:
       - '.github/**'
       - 'infrastructure/**'
