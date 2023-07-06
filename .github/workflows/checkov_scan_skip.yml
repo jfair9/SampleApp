@@ -18,3 +18,8 @@ jobs:
     uses: ./.github/workflows/_common-checkov-tf-scan-skip.yml
     with:
       environment: dev1
+  qa:
+    name: Scan qa1
+    uses: ./.github/workflows/_common-checkov-tf-scan-skip.yml
+    with:
+      environment: qa1      
