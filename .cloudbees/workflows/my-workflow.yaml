@@ -1,0 +1,52 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+metadata:
+  stages/v1alpha1:
+    - name: CI
+      jobs:
+        - Publish
+    - name: Development
+      jobs:
+        - deploy-to-Development
+    - name: Stage1
+      jobs:
+        - job
+    - name: Stage
+      jobs:
+        - deploy-to-Stage
+jobs:
+  deploy-to-Development:
+    steps:
+      - name: Deploy to Development
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to Development"
+    needs: Publish
+  deploy-to-Stage:
+    needs: job
+    steps:
+      - name: Deploy to Stage
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to Stage"
+  Publish:
+    steps:
+      - run: echo "hello world"
+        uses: docker://golang:1.20.3-alpine3.17
+        name: Build Artifact
+        shell: sh
+  job:
+    needs:
+      - deploy-to-Development
+    timeout-minutes: 4320
+    delegates: cloudbees-io/manual-approval/custom-job.yml@v1
+    with:
+      disallowLaunchByUser: false
+      notifyAllEligibleUsers: false
+      approvers: b4fd2fee-1622-11f0-a9c8-42010a83ae38,All users for organization
